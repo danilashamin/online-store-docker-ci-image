@@ -8,11 +8,12 @@ ENV FIREBASE_TOOLS_LATEST https://firebase.tools/bin/linux/latest
 ENV LOCAL_HOME /usr/local
 ENV ANDROID_SDK_ROOT /usr/local/.android
 ENV JQ_URL https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64
-ENV PATH $PATH=$PATH:$ANDROID_SDK_ROOT/cmdline-tools/tools/bin:$LOCAL_HOME/firebase:$LOCAL_HOME/.gradle/bin:$LOCAL_HOME/jq:$LOCAL_HOME/apk_upload/bin
+ENV PATH $PATH=$PATH:$ANDROID_SDK_ROOT/cmdline-tools/tools/bin:$LOCAL_HOME/firebase:$LOCAL_HOME/.gradle/bin:$LOCAL_HOME/bin:$LOCAL_HOME/apk_upload/bin
+
+RUN curl -o /usr/local/bin/jq http://stedolan.github.io/jq/download/linux64/jq && \
+  chmod +x /usr/local/bin/jq
 
 RUN cd "$LOCAL_HOME" \
-&& mkdir jq && cd jq && curl -o jq $JQ_URL \
-&& cd "$LOCAL_HOME" \
 && mkdir .android && cd .android \
 && curl -o sdk.zip $ANDROID_COMMAND_LINES_URL \
 && unzip sdk.zip \
